@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Todo list</title>
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <style>
+          body{
+               width: 100vw;
+               height: 100vh;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          }
+          .container{
+               width: 30%;
+               height: 50%;
+               border: 1px solid black;
+          }
+          button{
+               width: 60%;
+          }
+          h1{
+               text-align: center;
+          }
+        
+          input{
+               width: 100%;
+          }
+          button{
+               width: 100%;
+          }
+      
+          h1{
+               border-radius: 40px;
+               color: darkorange;
+               
+
+               
+          }
+     </style>
+</head>
+<body>
+     <div class="container ">
+          
+          <div class="row my-3">
+               <h1 class="">ToDo List</h1>
+               <div class="col justify-content-center align-items-center my-2 col-8">
+                    <input type="text" name="" id="ip1" class="btn btn-outline-info">
+               </div>
+               <div class="col justify-content-center align-items-center my-2">
+                    <button type="submit" class="btn btn-outline-info " id="btn">Add</button>
+               </div>
+          </div>
+          <div class="row my-0">
+               <div class="col-6">
+                    <div class="output" id="op"></div>
+               </div>
+               <div class="col-6">
+                    <div class="output" id="op1"></div>
+               </div>
+          </div>
+     </div>
+     <script>
+          var input =  document.getElementById('ip1');
+          var btn = document.getElementById('btn');
+          var op = document.getElementById('op');
+          let todos=[];
+          let i =0;
+          var loc;
+          window.onload=()=>{
+            loc = JSON.parse(localStorage.getItem('keys'));    
+          }
+          btn.addEventListener('click',()=>{
+               //color changing in bg
+         var hexcolor = [0,1,2,3,4,5,6,6,7,8,9,'A','B','C','D','E','F'];
+          let hex='#';
+          function color(){
+                   for(let i=0;i<6;i++){
+                    let ranmun = Math.floor(Math.random()*16);
+                    hex+=hexcolor[ranmun]
+                   }
+          }
+          color();
+          //adding todo list
+               todos.push(input.value);
+               localStorage.setItem('keys',JSON.stringify(todos))
+               input.value=''
+                  if(i<=2)
+                   {
+                  var p =  document.createElement('p');
+                  document.getElementById('op').appendChild(p)
+                   p.innerHTML+=todos[i];
+                   p.style.color='black';
+                   p.style.fontSize="1.1em"
+                   p.style.textAlign="center";
+                   p.style.backgroundColor=hex;
+                   p.style.borderRadius='10px'
+                   p.style.height='30px';
+                   p.style.paddingTop='1px'
+                   p.className="d-block ";
+                  i++;  
+                  }
+                  else if(i>=3 && i<6){
+                   p =  document.createElement('pre');
+                  document.getElementById('op1').appendChild(p)
+                   p.innerHTML+=todos[i];
+                   p.style.color='black';
+                   p.style.font="1.2em"
+                   p.style.textAlign="center";
+                   p.style.borderRadius='10px'
+                   p.style.paddingTop='1px'
+                   p.className="d-block ";
+                   p.style.backgroundColor='hex';
+                   i++;
+                  }
+                  else{
+                    alert("Sorry !!!! You Add  only 6")
+                  }
+                  //click,value in strike appear
+                   p.addEventListener('click',()=>{
+                         p.style.textDecoration="line-through"
+                   })
+                   //double-click ,values delete from array
+                   p.addEventListener('dblclick',()=>{
+                       document.getElementById('op').removeChild(p);
+                       todos.splice(todos[i],1);            
+                   })
+                } )
+               
+     
+
+     </script>
+</body>
+</html>
